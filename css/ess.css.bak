@@ -1,0 +1,81 @@
+
+.input-group-addon {
+	border-radius: 0px;
+    background: #2A2C32;
+    color:white;
+}
+.titulo{
+		color: #0183E8;
+
+}
+.subtitulo{
+		color: #0183E8;
+
+}
+.linkregistro{
+	color: black;
+	position: left;
+}
+.btn.btn-primary.entrar{
+	background: #2A2C32;
+}
+.btn.btn-primary.entrar:hover{
+	background: gray;
+}
+
+
+
+
+body{
+	background: #2A2C32;
+}
+#rfc{
+	background: #0167FE;
+	color:white;
+	   text-align: center;
+
+}
+.navbar{
+	border-style: solid;
+	border-bottom-width: 10px;
+	border-bottom-color: #0183E8;
+	background: #F1F1F1;
+}
+.main{
+ 	margin-top: 10%;
+
+	  
+}
+.main-login{
+
+ 	background-color: #fff;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+ 	border-style: solid;
+ 	border-color: #0183E8;
+ 	border-top-width: 2px;
+ 	border-right-width: 2px;
+ 	border-left-width: 2px;
+ 	border-bottom-width: 10px;
+}
+
+.main-center{
+ 	margin-top: 30px;
+ 	margin: 0 auto;
+ 	max-width: 530px;
+    padding: 40px 40px;
+}
+
+.btn {
+	border-radius: 0px;
+}
+
+.coment {
+	width: 500px;
+	font-family: tahoma;
+	word-wrap: break-word; 
+}

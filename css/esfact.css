@@ -1,0 +1,139 @@
+.input-group-addon {
+	border-radius: 0px;
+    background: #2A2C32;
+    color:white;
+}
+.titulo{
+		color: #0183E8;
+
+}
+.subtitulo{
+		color: #0183E8;
+
+}
+.linkregistro{
+	color: black;
+	position: left;
+}
+.btn.btn-primary.entrar{
+	background: #2A2C32;
+}
+.btn.btn-primary.entrar:hover{
+	background: gray;
+}
+
+#rfc{
+	text-align: center;
+}
+.navbar{
+	border-style: solid;
+}
+.main{
+/*  	margin-top: 10%;  */
+}
+
+.main-center{
+ 	margin-top: 30px;
+ 	margin: 0 auto;
+ 	max-width: 1200px;
+    padding: 20px 60px 0px;
+}
+
+.titulo-formulario {
+	font-size: 23px;
+	font-weight: bold;
+}
+
+.center {
+	text-align: center !important;
+}
+
+.infocliente{
+	background: black;
+}
+
+.separaticket {
+    height: 300px;
+}
+
+.main-login{
+
+ 	background-color: #fff;
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	border-radius: 0px;
+	-moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+	-webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+	box-shadow: 2px 5px 5px 0px rgba(0, 0, 0, 0.10);
+	 padding-bottom: 20px;
+	 margin-bottom: 50px;
+	margin-top:30px;
+}
+
+.btn {
+	border-radius: 0px;
+}
+
+.botones{
+	font-family: arial;
+	font-size: 15px;
+}
+.table{
+	font-family: arial;
+	font-size: 15px;
+}
+.coment {
+	width: 500px;
+	font-family: tahoma;
+	word-wrap: break-word; 
+}
+
+.mydiv br {
+display: none;
+}
+
+.pl-20 {
+	padding-left: 20px;
+}
+
+.pr-20 {
+	padding-right: 20px;
+}
+
+.input-width {
+	width: 22% !important;
+}
+
+.input-width-xs {
+	width: 12% !important;
+}
+
+.input-width-lg {
+	width: 44% !important;
+}
+
+.rb-20 {
+	margin-bottom: 20px !important;
+}
+
+.comment {
+	width: 600px;
+	font-family: tahoma;
+	word-wrap: break-word; 
+	font-size: 6pt;
+	margin-left: 2px;
+}
+
+.font-xs {
+	font-size: 8pt;
+}
+.pie-pagina {
+	background-color: #f8f8f8;
+	border-color: #e7e7e7;
+	height: 100px;
+	box-shadow: 0 0px 7px 0px #cecece;
+}
+
+.mb-50 {
+	margin-bottom: 50px;
+}

@@ -1,0 +1,82 @@
+<?php 
+//set_time_limit(9000000000);
+$Ticket = $_POST["Ticket"];
+$T_RETORNO=1;
+require_once 'DPWS/SapZmfFunction.php';
+           $SapZmfCommx1030Generaxmlportal="SapZmfCommx1030Generaxmlportal";
+           $decoded=$SapZmfCommx1030Generaxmlportal($Ticket,$T_RETORNO);
+    try {
+      $contador= count($decoded,COUNT_RECURSIVE);
+      if ($contador<4) {
+        echo '<div class="alert alert-danger alert-dismissable fade in">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <strong>ERROR!</strong> Folio del ticket incorrecto. <b>Ingrese</b> un folio valido.
+              </div>';
+      }
+      else{
+        if (strlen($Ticket) < 18) {
+          echo '
+                 <div class="alert alert-danger alert-dismissable fade in">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Este Folio de ticket, ya fue facturado desde tienda</strong> , una vez recibidos sus productos favor de esperar su comprobante fiscal en un tiempo no máximo a 48 horas, cualquier duda o aclaración favor de llamar a nuestro Call Center 66 99 15 53 00.
+                  </div>';
+                die();
+        }
+        $stringMensaje = "";
+        if (array_key_exists('E_MENSAJE', $decoded["SapZmfCommx1030Generaxmlportal"])) {
+          $stringMensaje = $decoded["SapZmfCommx1030Generaxmlportal"]["E_MENSAJE"];
+          if (strpos($stringMensaje, 'devolucion de todos los articulos') == false) {
+            echo $stringMensaje;
+            $string= base64_decode($decoded["SapZmfCommx1030Generaxmlportal"]["E_XML"]);
+          }
+          else{ 
+            echo $stringMensaje;
+            echo "<p>
+              <hr NOSHADE size = 3 width=100%>
+          <p>";
+            die();
+          }
+        }
+        else{
+          $string= base64_decode($decoded["SapZmfCommx1030Generaxmlportal"]["E_XML"]);
+        }
+
+        $xml = simplexml_load_string($string, 'SimpleXMLElement', LIBXML_NOCDATA);
+        echo "<br><h1><b>Articulos</b></h1></br>";
+        echo '<div class="table-responsive">';
+        echo '<table class="table table-bordered">
+                        <thead class="thead-inverse">
+                          <tr>
+                            <th>Clave Prod.</th>
+                            <th>Descripcion</th>
+                            <th>Cantidad</th>                                
+                            <th>Clave Unidad</th>
+                            <th>Valor Unitario</th>
+                            <th>Importe</th>
+                            <th>Descuento</th>
+                          </tr>
+                        </thead>
+                        <tbody>';
+                            
+        foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Concepto){ 
+          echo "<tr>";
+          echo "<td>".$Concepto["ClaveProdServ"]."</td>";
+          // echo "<td>".$Concepto["ID"]."</td>";
+          echo "<td>".$Concepto["Descripcion"]."</td>";
+          echo "<td>".$Concepto["Cantidad"]."</td>";
+          echo "<td>".$Concepto["ClaveUnidad"]."</td>";  
+          echo "<td>".$Concepto["ValorUnitario"]."</td>";  
+          echo "<td>".$Concepto["Importe"]."</td>"; 
+          echo "<td>".$Concepto["Descuento"]."</td>"; 
+          echo "</tr>";
+        } 
+        echo '</tbody>
+                </table>
+                         </div>
+                <center><input type="image" id="GenerarFactura" class="image-responsive" src="imgRecurso/generarfactura.png" width="300px" /></center>';
+      }
+    } 
+    catch (Exception $e) {
+       echo "No se puede realizar la consulta de su tiquet Intente mas tarde";
+    }          
+?>

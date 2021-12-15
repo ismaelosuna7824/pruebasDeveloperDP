@@ -1,0 +1,56 @@
+.input-group-addon {
+	border-radius: 0px;
+    background: black;
+    color:white;
+}
+
+body{
+	background: #2A2C32;
+}
+#rfc{
+	background: #0167FE;
+	width: 300px;
+}
+.navbar{
+	border-style: solid;
+	border-bottom-width: 10px;
+	border-bottom-color: #0183E8;
+}
+.main{
+ 	margin-top: 15%;
+
+	  
+}
+.main-login{
+
+ 	background-color: #fff;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+ 	border-style: solid;
+ 	border-color: #0183E8;
+ 	border-top-width: 1px;
+ 	border-right-width: 1px;
+ 	border-left-width: 1px;
+ 	border-bottom-width: 10px;
+}
+
+.main-center{
+ 	margin-top: 30px;
+ 	margin: 0 auto;
+ 	max-width: 530px;
+    padding: 40px 40px;
+}
+
+.btn {
+	border-radius: 0px;
+}
+.mydiv {
+
+}
+.mydiv br {
+display: none;
+}

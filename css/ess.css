@@ -1,0 +1,88 @@
+
+.input-group-addon {
+	border-radius: 0px;
+	background: #2A2C32;
+	color:white;
+}
+.titulo{
+	color: #0183E8;
+
+}
+.subtitulo{
+	color: #0183E8;
+}
+.linkregistro{
+	color: black;
+	position: left;
+}
+.btn.btn-primary.entrar{
+	background: #2A2C32;
+}
+.btn.btn-primary.entrar:hover{
+	background: gray;
+}
+
+#rfc{
+	color:black;
+	text-align: center;
+}
+.navbar{
+	border-style: solid;
+}
+.main{
+ 	margin-top: 10%; 
+}
+
+.main-center{
+ 	margin-top: 30px;
+ 	margin: 0 auto;
+ 	max-width: 530px;
+  padding: 20px 60px 0px;
+}
+
+.btn {
+	border-radius: 0px;
+}
+
+.comment {
+	width: 600px;
+	font-family: tahoma;
+	word-wrap: break-word; 
+	font-size: 6pt;
+	margin-left: 2px;
+}
+
+.comment-lg {
+	font-size: 8pt;
+}
+
+.mydiv br {
+	display: none;
+}
+
+.mt-20 {
+	margin-top: 20px;
+}
+
+.ml-2 {
+	padding-left: 10%;
+}
+
+.mr-2 {
+	padding-right: 10%;
+}
+
+.pie-pagina {
+	background-color: #f8f8f8;
+	border-color: #e7e7e7;
+	height: 100px;
+	box-shadow: 0 0px 7px 0px #cecece;
+}
+
+.font-xs {
+	font-size: 8pt;
+}
+
+.mb-50 {
+	margin-bottom: 50px;
+}

@@ -3,7 +3,7 @@
 function SapZmfCommx1033FactPortal($Ticket,$documento,$UUID,$Comprobante,$TimbradoFecha)
 {
    //$service_url = 'http://189.202.187.23:7082/pos/autofacturacion'; // Produccion
-	 $service_url = 'http://189.202.187.24:7080/pos/autofacturacion'; //DEV
+	 $service_url = 'http://189.202.187.24:7082/pos/autofacturacion'; //DEV
     $curl = curl_init($service_url);
     $curl_post_data ='
     { 
@@ -40,7 +40,7 @@ function SapZmfCommx1033FactPortal($Ticket,$documento,$UUID,$Comprobante,$Timbra
 function  SapZmfCommx1030Generaxmlportal($Ticket,$T_RETORNO)
 {
 
-    $service_url = 'http://189.202.187.24:7080/pos/autofacturacion';
+    $service_url = 'http://189.202.187.24:7082/pos/autofacturacion';
     //$service_url = 'http://189.202.187.23:7082/pos/autofacturacion';
     $curl = curl_init($service_url);
     $curl_post_data = '
@@ -64,7 +64,7 @@ function  SapZmfCommx1030Generaxmlportal($Ticket,$T_RETORNO)
 
 function SapZbapiSelectclientebyrfc($RFC){
 
-        //$service_url = 'http://189.202.187.24:7080/pos/clientes'; //Dev no funciona esta apagado
+        //$service_url = 'http://189.202.187.24:7082/pos/clientes'; //Dev no funciona esta apagado
         $service_url = 'http://189.202.187.23:7082/pos/clientes'; //Produccion
 
         $curl = curl_init($service_url);
@@ -94,7 +94,7 @@ function SapZbapiSelectclientebyrfc($RFC){
 
 function SapZbapiSelectEmpresaientebyrfc($RFC){
 
-        $service_url = 'http://189.202.187.24:7080/pos/clientes';
+        $service_url = 'http://189.202.187.24:7082/pos/clientes';
         //$service_url = 'http://189.202.187.23:7082/pos/clientes';
 
         $curl = curl_init($service_url);
@@ -122,7 +122,7 @@ function SapZbapiSelectEmpresaientebyrfc($RFC){
 
 function SapZbapisd26Altaclient($AKONT,$Sexo,$ANTLF,$BZIRK,$KTOKD,$EstadoCivil,$Email,$Pais,$I_SORTL,$KTGRD,$KZAZU,$Nombre,$ApellidoP,$ApellidoM,$NumeroEx,$NUMINT,$RFC,$LPRIO,$Telefono,$TIPO_CLIENTE,$Ciudad,$Distrito,$PRFRE,$CP,$Region,$SPART,$Calle,$VKORG,$VERSG,$VSBED,$VTWEG,$FENAC){
 
-            $service_url = 'http://189.202.187.24:7080/pos/autofacturacion';
+            $service_url = 'http://189.202.187.24:7082/pos/autofacturacion';
             //$service_url = 'http://189.202.187.23:7082/pos/autofacturacion';
             $curl = curl_init($service_url);
             $curl_post_data = '
@@ -182,7 +182,7 @@ function SapZbapisd26Altaclient($AKONT,$Sexo,$ANTLF,$BZIRK,$KTOKD,$EstadoCivil,$
 
 function SapZbapisd26AltaEmpresa($AKONT,$Sexo,$ANTLF,$BZIRK,$KTOKD,$EstadoCivil,$Email,$Pais,$I_SORTL,$KTGRD,$KZAZU,$Nombre,$ApellidoP,$NumeroEx,$NUMINT,$RFC,$LPRIO,$Telefono,$TIPO_CLIENTE,$Ciudad,$Distrito,$PRFRE,$CP,$Region,$SPART,$Calle,$VKORG,$VERSG,$VSBED,$VTWEG,$FENAC){
 
-            $service_url = 'http://189.202.187.24:7080/pos/autofacturacion';
+            $service_url = 'http://189.202.187.24:7082/pos/autofacturacion';
             //$service_url = 'http://189.202.187.23:7082/pos/autofacturacion';
             $curl = curl_init($service_url);
             $curl_post_data = '
@@ -244,7 +244,7 @@ function SapZbapisd26AltaEmpresa($AKONT,$Sexo,$ANTLF,$BZIRK,$KTOKD,$EstadoCivil,
 
 function SapZbapisd26Modifclient($AKONT,$Sexo,$ANTLF,$BZIRK,$EstadoCivil,$Email,$Pais,$IDC,$KTGRD,$KZAZU,$Nombre,$ApellidoP,$ApellidoM,$NumeroEx,$NUMINT,$RFC,$LPRIO,$Telefono,$TIPO_CLIENTE,$Ciudad,$Distrito,$PRFRE,$CP,$Region,$SPART,$Calle,$VKORG,$VERSG,$VSBED,$VTWEG,$FENAC){
 
-          $service_url = 'http://189.202.187.24:7080/pos/autofacturacion';
+          $service_url = 'http://189.202.187.24:7082/pos/autofacturacion';
           //$service_url = 'http://189.202.187.23:7082/pos/autofacturacion';
             $curl = curl_init($service_url);
             $curl_post_data =         '
@@ -302,7 +302,7 @@ function SapZbapisd26Modifclient($AKONT,$Sexo,$ANTLF,$BZIRK,$EstadoCivil,$Email,
 
 function SapZbapisd26ModifEmpresa($AKONT,$Sexo,$ANTLF,$BZIRK,$EstadoCivil,$Email,$Pais,$IDC,$KTGRD,$KZAZU,$Nombre,$ApellidoP,$NumeroEx,$NUMINT,$RFC,$LPRIO,$Telefono,$TIPO_CLIENTE,$Ciudad,$Distrito,$PRFRE,$CP,$Region,$SPART,$Calle,$VKORG,$VERSG,$VSBED,$VTWEG,$FENAC){
 
-          $service_url = 'http://189.202.187.24:7080/pos/autofacturacion';
+          $service_url = 'http://189.202.187.24:7082/pos/autofacturacion';
           //$service_url = 'http://189.202.187.23:7082/pos/autofacturacion';
             $curl = curl_init($service_url);
             $curl_post_data =         '

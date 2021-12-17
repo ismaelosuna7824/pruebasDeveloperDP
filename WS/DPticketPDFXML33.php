@@ -170,7 +170,7 @@ try //inicia Facturacion Dp
                                             //$client = new SoapClient("https://arafacturacion.com/Dportenis33/Service.asmx?WSDL");
                                             //$client = new SoapClient("108.174.197.60/Dportenis33/Service.asmx?WSDL");
                                             $client = new SoapClient("https://www.facturadp.com/Dportenis33/Service.asmx?WSDL");
-                                            $params = ['xml' => $xmlstring, 'produccion' => "SI", 'ticket' => $Ticket];
+                                            $params = ['xml' => $xmlstring, 'produccion' => "NO", 'ticket' => $Ticket];
                                             $result = $client->FacturacionCliente($params);
                                             //print_r($result);
                                             $xmr = $result->FacturacionClienteResult;
@@ -192,7 +192,7 @@ try //inicia Facturacion Dp
                                             //$client = new SoapClient("https://arafacturacion.com/Dportenis33/Service.asmx?WSDL");
                                             ini_set('max_execution_time', 300);
                                             $client = new SoapClient("https://facturadp.com/Dportenis33/Service.asmx?WSDL");
-                                            $params = ['xml' => $xmlstring, 'produccion' => "SI", "ticket" => $Ticket];
+                                            $params = ['xml' => $xmlstring, 'produccion' => "NO", "ticket" => $Ticket];
                                             //echo 'Xml Error <pre>', htmlentities($xmlstring), '</pre>';
                                             $result = $client->FacturacionClienteEgreso($params);
                                             $xmr = $result->FacturacionClienteEgresoResult;
@@ -719,7 +719,7 @@ try //inicia Facturacion Dp
                                             //$client = new SoapClient("https://arafacturacion.com/Dportenis33/Service.asmx?WSDL");
                                             $client = new SoapClient("https://www.facturadp.com/Dportenis33/Service.asmx?WSDL");
                                             //$params = array('xml' => $xmlstring, 'produccion' => "1" ,"ticket" => $Ticket  );
-                                            $params = ['xml' => $xmlstring, 'produccion' => "SI", 'ticket' => $Ticket];
+                                            $params = ['xml' => $xmlstring, 'produccion' => "NO", 'ticket' => $Ticket];
                                             //echo '<pre>', htmlentities($xmlstring), '</pre>';
                                             $result = $client->FacturacionCliente($params);
                                             $xmr = $result->FacturacionClienteResult;
@@ -734,7 +734,7 @@ try //inicia Facturacion Dp
                                             ini_set('max_execution_time', 300);
                                             //$client = new SoapClient("https://arafacturacion.com/Dportenis33/Service.asmx?WSDL");
                                             $client = new SoapClient("https://facturadp.com/Dportenis33/Service.asmx?WSDL");
-                                            $params = ['xml' => $xmlstring, 'produccion' => "SI", "ticket" => $Ticket];
+                                            $params = ['xml' => $xmlstring, 'produccion' => "NO", "ticket" => $Ticket];
                                             $result = $client->FacturacionClienteEgreso($params);
                                             $xmr = $result->FacturacionClienteEgresoResult;
                                         } catch (Exception $e) {

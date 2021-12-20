@@ -19,7 +19,7 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
             $res['data'] = $decoded;
         break;
         }
-
+//
     echo json_encode($res);
     die();
 ?>

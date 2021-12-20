@@ -80,7 +80,7 @@ function formDefault(){
         $("#txtnreferencia").hide();
         $("#ref").hide();
         $("#ref").val("");
-      }
+      } 
     }); */
 
 

@@ -4,9 +4,11 @@
   fputs($f,"FacturacionCliente"."\r\n") or die("no se pudo crear o insertar el fichero");
   fclose($f);
   if (isset($_GET["RFC"])) {
+  
     $POSRFC=strtoupper($_GET["RFC"]); 
     if (strlen($POSRFC)==12) 
     {
+     
         $_SESSION["empresarfc"]=$POSRFC;
         header('Location: facturaempresa.php');
         die();

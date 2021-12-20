@@ -37,24 +37,79 @@
                 </li>
                 <?php } else {?>
 
-        <form class="navbar-form navbar-left" action="./WS/Login/login_usuario.php" method="POST" >
-                                    <div class="input-group">
-                 <a class="pull-right linkregistro" href="registro.php"><strong>¿No te has registrado?</strong></a>
-              </div>
-            <div class="input-group">
-                 <span class="input-group-addon primary"><i class="fa fa-user-o" aria-hidden="true"></i></span>                  
-           <input type="text" class="form-control" placeholder="email" name="email">
-            </div>
-              <div class="input-group">
-                  <span class="input-group-addon primary"><i class="fa fa-lock" aria-hidden="true"></i></span>   
-                 <input type="password" class="form-control"  placeholder="Password" name="password">
-              </div>
-            <button type="submit" class="btn btn-primary entrar">Entrar</button>
-            <!-- <button onclick="location.href='https://facturas.grupodp.com.mx'" type="button" class="btn btn-primary entrar">
-     Salir</button> !-->
-          </form>
+            <form class="navbar-form navbar-left" onsubmit="login(event)" >
+                                        <div class="input-group">
+                    <a class="pull-right linkregistro" href="registro.php"><strong>¿No te has registrado?</strong></a>
+                  </div>
+                <div class="input-group">
+                    <span class="input-group-addon primary"><i class="fa fa-user-o" aria-hidden="true"></i></span>                  
+                    <input type="text" class="form-control" placeholder="email" name="email" id="email">
+                </div>
+                  <div class="input-group">
+                      <span class="input-group-addon primary"><i class="fa fa-lock" aria-hidden="true"></i></span>   
+                    <input type="password" class="form-control"  placeholder="Password" name="password" id="password">
+                  </div>
+                <button type="submit" class="btn btn-primary entrar" >Entrar</button>
+                <!-- <button onclick="location.href='https://facturas.grupodp.com.mx'" type="button" class="btn btn-primary entrar">
+        Salir</button> !-->
+              </form>
         <?php } ?>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
+<script>
+
+  async function  login(evt){
+    const query =  ` query Login($email: String, $password: String ){
+                            loginCliente(email: $email, password: $password){
+                              status
+                              message
+                              token
+                            }
+                          }
+                          `;
+    evt.preventDefault();
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
+    const response = await fetch('https://dportenisback-e824u.ondigitalocean.app/graphql', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                      },
+                      body: JSON.stringify({
+                        query,
+                        variables: {
+                          email: email.trim(),
+                          password: password.trim()
+                        },
+                      }),
+                    }) .then(r => r.json())
+                    .then(data => {
+                        //console.log(data.data)
+                        if(data.data.loginCliente.status){
+                            alert("bien")
+                        }else{
+                          const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                              toast.addEventListener('mouseenter', Swal.stopTimer)
+                              toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                          })
+
+                          Toast.fire({
+                            icon: 'error',
+                            title: 'El usuario o contraseña es incorrecto'
+                          })
+                        }
+                    });
+  }
+
+</script>

@@ -11,13 +11,16 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
     $res = array("error"=>false);
     if(isset($_GET['accion']))
         $accion=$_GET['accion'];
-
+        
+        
         switch ($accion) {
         case 'verFactura':
+            $ticket = $data->ticket;
             $SapZmfCommx1030Generaxmlportal = "SapZmfCommx1030Generaxmlportal";
-            $decoded = $SapZmfCommx1030Generaxmlportal("1801211201153829", "1");
+            $decoded = $SapZmfCommx1030Generaxmlportal($ticket, "1");
             $res['data'] = $decoded;
-        break;
+               
+            break;
         }
 //
     echo json_encode($res);

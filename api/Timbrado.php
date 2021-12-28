@@ -303,11 +303,12 @@ try //inicia Facturacion Dp
                                     if ($i == 2)  // Genera factura egreso
                                     {
                                         if (empty($xmd) || $xmd == '') {
-                                            echo '
-                                                <div class="alert alert-danger alert-dismissable fade in">
-                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                    <strong>ERROR!</strong> Folio del ticket incorrecto. <b>Ingrese</b> un folio valido.
-                                                </div>';
+                                            // echo '
+                                            //     <div class="alert alert-danger alert-dismissable fade in">
+                                            //         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            //         <strong>ERROR!</strong> Folio del ticket incorrecto. <b>Ingrese</b> un folio valido.
+                                            //     </div>';
+                                                $res['data'] = [false, "Folio del ticket incorrecto. Ingrese un folio valido."];
                                             die();
                                         }
 
@@ -545,42 +546,48 @@ try //inicia Facturacion Dp
                                         $zip->close();
 
                                         if ($nContadorEntregas == 0) {
-                                            echo "
-                                                    <table style='width:100%'>
-                                                        <thead>
-                                                            <tr>
-                                                                <th>PDF</th>
-                                                                <th>XML</th>
-                                                                <th>E-Mail</th>
-                                                            </tr>
-                                                        </thead>";
+                                            // echo "
+                                            //         <table style='width:100%'>
+                                            //             <thead>
+                                            //                 <tr>
+                                            //                     <th>PDF</th>
+                                            //                     <th>XML</th>
+                                            //                     <th>E-Mail</th>
+                                            //                 </tr>
+                                            //             </thead>";
+                                            $res['data'] = [false, "Sin Facturas"];
                                         }
 
-                                        echo '
-                                            <tr>
-                                                <td>
-                                                    <a  href="Facturas/'.$folio."_".$nContadorEntregas.'.pdf" download="Facturas/'.$folio."_".$nContadorEntregas.'.pdf">
-                                                        <img class="image-responsive" src="img/PDF.png"></a>
-                                                </td>
-                                                <td>
-                                                    <a id="descargarXml" download href="Facturas/'.$folio."_".$nContadorEntregas.'.xml" download="Facturas/'.$folio."_".$nContadorEntregas.'.xml">
-                                                        <img  class="image-responsive" src="img/XML.png"></a>
-                                                </td>
-                                                <td>
-                                                    <p></p>
-                                                </td>
-                                            </tr>';
+                                        // echo '
+                                        //     <tr>
+                                        //         <td>
+                                        //             <a  href="Facturas/'.$folio."_".$nContadorEntregas.'.pdf" download="Facturas/'.$folio."_".$nContadorEntregas.'.pdf">
+                                        //                 <img class="image-responsive" src="img/PDF.png"></a>
+                                        //         </td>
+                                        //         <td>
+                                        //             <a id="descargarXml" download href="Facturas/'.$folio."_".$nContadorEntregas.'.xml" download="Facturas/'.$folio."_".$nContadorEntregas.'.xml">
+                                        //                 <img  class="image-responsive" src="img/XML.png"></a>
+                                        //         </td>
+                                        //         <td>
+                                        //             <p></p>
+                                        //         </td>
+                                        //     </tr>';
+
+                                            $res['data'] = [true, '"Facturas/'.$folio."_".$nContadorEntregas.'.pdf"', '"Facturas/'.$folio."_".$nContadorEntregas.'.xml"'];
                                         unset($GLOBALS['pdf']);
                                     } //Ingreso
                                 } //Relacionado
                                 else {
                                     if ($paso == 0) {
-                                        echo '
-                                            <div class="alert alert-danger alert-dismissable fade in">
-                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                <strong>ERROR!</strong> Error al generar los archivos de Factura,
-                                                 Cualquier duda o aclaración favor de comunicarse al 
-                                                66 99 15 53 00.</div>';
+                                        // echo '
+                                        //     <div class="alert alert-danger alert-dismissable fade in">
+                                        //         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        //         <strong>ERROR!</strong> Error al generar los archivos de Factura,
+                                        //          Cualquier duda o aclaración favor de comunicarse al 
+                                        //         66 99 15 53 00.</div>';
+                                                $res['data'] = [false, "Error al generar los archivos de Factura,
+                                                Cualquier duda o aclaración favor de comunicarse al 
+                                               66 99 15 53 00."];
                                         $paso++;
                                     }
                                     break;
@@ -616,34 +623,37 @@ try //inicia Facturacion Dp
                     }
 
                     //print_r($NombreAd);
-                    echo '
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td><img id="email"  class="image-responsive" src="img/email.png"></td>
-                         </tr>
-                         <input class="form-control" id="zipx" type="submit"  style="display: none;" name="action" value="'.$Lista2.'">
-                         <input class="form-control" id="namezip" type="submit" style="display: none;"  name="action" value="'.$NombreAd.'" >              
-                        <div id="respuesta"></div>';
+                    // echo '
+                    //     <tr>
+                    //         <td></td>
+                    //         <td></td>
+                    //         <td><img id="email"  class="image-responsive" src="img/email.png"></td>
+                    //      </tr>
+                    //      <input class="form-control" id="zipx" type="submit"  style="display: none;" name="action" value="'.$Lista2.'">
+                    //      <input class="form-control" id="namezip" type="submit" style="display: none;"  name="action" value="'.$NombreAd.'" >              
+                    //     <div id="respuesta"></div>';
+                    $res['data'] = [false, "lista que no se de que es"];
                 }
             } catch (Exception $e) {
-                echo "Error: ".$e;
+                $res['data'] = [false, $e];
             }
         } else {
             $stringMensaje = $decoded["SapZmfCommx1030Generaxmlportal"]["E_MENSAJE"];
             if (strpos($stringMensaje, 'devolucion de todos los artículos') || strpos($stringMensaje, 'Ticket sin artículos pendientes')) {
                 $stringMensaje = str_replace("01 800 0028 774", "66 99 15 53 00", $stringMensaje); 
-                echo '
-                        <div class="alert alert-danger alert-dismissable fade in">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.$stringMensaje.'            
-                        </div>';
+                // echo '
+                //         <div class="alert alert-danger alert-dismissable fade in">
+                //             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.$stringMensaje.'            
+                //         </div>';
+                        $res['data'] = [false, $stringMensaje];
             } else {
                 if (strpos($stringMensaje, 'folio de ticket contiene devoluciones')) {
                     $stringMensaje = str_replace("01 800 0028 774", "66 99 15 53 00", $stringMensaje);
-                    echo '
-                            <div class="alert alert-danger alert-dismissable fade in">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.$stringMensaje.'            
-                            </div>';
+                    // echo '
+                    //         <div class="alert alert-danger alert-dismissable fade in">
+                    //             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.$stringMensaje.'            
+                    //         </div>';
+                    $res['data'] = [false, $stringMensaje];
                 }
 
                 $stringCopia = $string;
@@ -762,8 +772,9 @@ try //inicia Facturacion Dp
                                             $result = $client->FacturacionClienteEgreso($params);
                                             $xmr = $result->FacturacionClienteEgresoResult;
                                         } catch (Exception $e) {
-                                            error_log($e, 3, 'error_dp.log');
-                                            echo "Error al consultar".$e;
+                                            // error_log($e, 3, 'error_dp.log');
+                                            // echo "Error al consultar".$e;
+                                            $res['data'] = [false, $e];
                                         }
                                     }
                                     $findme = '<error>';
@@ -809,11 +820,13 @@ try //inicia Facturacion Dp
                                     if ($i == 1) // Genera factura ingreso
                                     {
                                         if (empty($xmd) || $xmd == '') {
-                                            echo '
-                                                    <div class="alert alert-danger alert-dismissable fade in">
-                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                        <strong>ERROR!</strong> Folio del ticket incorrecto. <b>Ingresé</b> un folio válido.
-                                                    </div>';
+                                            // echo '
+                                            //         <div class="alert alert-danger alert-dismissable fade in">
+                                            //             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            //             <strong>ERROR!</strong> Folio del ticket incorrecto. <b>Ingresé</b> un folio válido.
+                                            //         </div>';
+
+                                                    $res['data'] = [false, "Folio del ticket incorrecto. Ingresé un folio válido."];
                                             die();
                                         }
                                         #Datos para el PDF
@@ -824,11 +837,12 @@ try //inicia Facturacion Dp
                                     if ($i == 2)  // Genera factura egreso
                                     {
                                         if (empty($xmd) || $xmd == '') {
-                                            echo '
-                                                    <div class="alert alert-danger alert-dismissable fade in">
-                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                        <strong>ERROR!</strong> Folio del ticket incorrecto. <b>Ingrese</b> un folio valido.
-                                                    </div>';
+                                            // echo '
+                                            //         <div class="alert alert-danger alert-dismissable fade in">
+                                            //             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            //             <strong>ERROR!</strong> Folio del ticket incorrecto. <b>Ingrese</b> un folio valido.
+                                            //         </div>';
+                                                    $res['data'] = [false, "Folio del ticket incorrecto. <b>Ingrese</b> un folio valido."];
                                             die();
                                         }
                                         $xmlTimbrado = simplexml_load_string($xmd, 'SimpleXMLElement', LIBXML_NOCDATA);
@@ -1052,38 +1066,35 @@ try //inicia Facturacion Dp
                                         // Una vez añadido los archivos deseados cerramos el zip.
                                         $zip->close();
                                         if ($nContadorEntregas == 0) {
-                                            echo "
-                                                    <hr>
-                                                        <table style='width:100%'>
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>PDF</th>
-                                                                    <th>XML</th>
-                                                                    <th>E-Mail</th>
-                                                                </tr>
-                                                            </thead>";
+                                            $res['data'] = [false, "fin caturas"];
                                         }
-                                        echo '
-                                                <tr>
-                                                    <td>
-                                                        <a href="Facturas/'.$folio."_".$nContadorEntregas.'.pdf" download="Facturas/'.$folio."_".$nContadorEntregas.'.pdf">
-                                                        <img  class="image-responsive" src="img/pdf.png"></a>
-                                                    </td>
-                                                    <td>
-                                                        <a download href="Facturas/'.$folio."_".$nContadorEntregas.'.xml" download="Facturas/'.$folio."_".$nContadorEntregas.'.xml">
-                                                        <img  class="image-responsive" src="img/xml.png"></a>
-                                                    </td>
-                                                    <td><p></p></td>
-                                                </tr>';
+                                        // echo '
+                                        //         <tr>
+                                        //             <td>
+                                        //                 <a href="Facturas/'.$folio."_".$nContadorEntregas.'.pdf" download="Facturas/'.$folio."_".$nContadorEntregas.'.pdf">
+                                        //                 <img  class="image-responsive" src="img/pdf.png"></a>
+                                        //             </td>
+                                        //             <td>
+                                        //                 <a download href="Facturas/'.$folio."_".$nContadorEntregas.'.xml" download="Facturas/'.$folio."_".$nContadorEntregas.'.xml">
+                                        //                 <img  class="image-responsive" src="img/xml.png"></a>
+                                        //             </td>
+                                        //             <td><p></p></td>
+                                        //         </tr>';
+
+                                                $res['data'] = [false, '"Facturas/'.$folio."_".$nContadorEntregas.'.pdf"', '"Facturas/'.$folio."_".$nContadorEntregas.'.xml"'];
                                         unset($GLOBALS['pdf']);
                                         $nContadorEntregas++;
                                     } // Fin Ingreso
                                     else {
                                         if ($paso == 0) {
-                                            echo '<div class="alert alert-danger">
-                                                <strong>ERROR!</strong> para poder realizar tu factura deberás esperar <b>24 hrs</b> 
+                                            // echo '<div class="alert alert-danger">
+                                            //     <strong>ERROR!</strong> para poder realizar tu factura deberás esperar <b>24 hrs</b> 
+                                            //     después de tu fecha de compra, Cualquier duda o aclaración favor de comunicarse al 
+                                            //     66 99 15 53 00.</div>';
+
+                                                $res['data'] = [false, "para poder realizar tu factura deberás esperar 24 hrs
                                                 después de tu fecha de compra, Cualquier duda o aclaración favor de comunicarse al 
-                                                66 99 15 53 00.</div>';
+                                                66 99 15 53 00."];
                                             $paso++;
                                         }
                                         break;
@@ -1125,10 +1136,11 @@ try //inicia Facturacion Dp
         } // Fin Try Principal
         catch (Exception $e) {
             error_log($e, 3, 'error_dp.log');
-            echo "No se puede realizar la consulta de su ticket Intente mas tarde".$e;
+            $res['data'] = [false, "no se puede realizar la consulta de su ticket, intente mas tarde"];
+            
         }
 
-            $res['data'] = $decoded;
+            //$res['data'] = $decoded;
                
             break;
         }

@@ -1,50 +1,73 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+
 require_once '../dompdf/autoload.inc.php';
 require_once '../QR/qrlib.php';
-require_once 'DPWS/SapZmfFunction.php';
+require_once 'WS/DPWS/SapZmfFunction.php';
 require_once 'Login/wsfacturacion.php';
 use Dompdf\Dompdf;
 
-$RFC = $_POST["RFC"];
-$Nombre = $_POST["Nombre"];
-$ApellidoP = $_POST["ApellidoP"];
-$ApellidoM = "";
-$TelefonoViejo = "01 800 0028 774";
 
-if (isset($_POST["ApellidoM"])) {
-    $ApellidoM = $_POST["ApellidoM"];
-}
+// $ApellidoM = "";
+// $TelefonoViejo = "01 800 0028 774";
 
-$Calle = $_POST["Calle"];
-$NumeroEx = $_POST["NumeroEx"];
-$NumeroInt = $_POST["NumeroInt"];
-$Distrito = $_POST["Distrito"];
-$CP = $_POST["CP"];
-$Pais = $_POST["Pais"];
-$Region = $_POST["Region"];
-$Telefono = $_POST["Telefono"];
-$Email = $_POST["Email"];
-$EstadoCivil = $_POST["EstadoCivil"];
-$Sexo = $_POST["Sexo"];
-$Ciudad = $_POST["Ciudad"];
-$Ticket = $_POST["Ticket"];
-$FormaDePago = $_POST["MetodoPago"];
-$FormaPagoEgreso = "";
-$MetodoPagoEgreso = "";
-$UsoCFDI = $_POST["UsoDelCFDI"];
-$MetodoDePago = "PUE"; //$MetodoDePago." ".$MetodoPagoTexto;
-$Ingreso = "";
-$documento = "";
-$nUsoCFDI = 0;
-$dir = "";
+// if (isset($_POST["ApellidoM"])) {
+//     $ApellidoM = $_POST["ApellidoM"];
+// }
+
+//$Calle = $_POST["Calle"];
+//$NumeroEx = $_POST["NumeroEx"];
+//$NumeroInt = $_POST["NumeroInt"];
+//$Distrito = $_POST["Distrito"];
+//$CP = $_POST["CP"];
+//$Pais = $_POST["Pais"];
+//$Region = $_POST["Region"];
+//$Telefono = $_POST["Telefono"];
+//$Email = $_POST["Email"];
+//$EstadoCivil = $_POST["EstadoCivil"];
+//$Sexo = $_POST["Sexo"];
+//$Ciudad = $_POST["Ciudad"];
+//$Ticket = $_POST["Ticket"];
+//$FormaDePago = $_POST["MetodoPago"];
+
+
+
+
 //$zip = $_POST['zip'];
 //$namezip=$_POST['namezip'];
 
-if (! empty($Referencia)) {
-    $MetodoPagoTexto = $Referencia;
-} else {
-    $MetodoPagoTexto = "No identificado";
-}
+
+
+
+
+    //$SapZbapiSelectclientebyrfc="SapZbapiSelectclientebyrfc";
+    
+    $data = json_decode(file_get_contents("php://input"));
+    $accion = "mostrar";
+    $res = array("error"=>false);
+    if(isset($_GET['accion']))
+        $accion=$_GET['accion'];
+        
+        
+        switch ($accion) {
+        case 'timbradoF':
+            $NumeroInt = $data->NumeroInt;
+            $Ticket = $data->Ticket;
+            $FormaDePago = $data->MetodoPago; 
+            $FormaPagoEgreso = "";
+            $MetodoPagoEgreso = "";
+            $UsoCFDI = $data->UsoDelCFDI;
+            $MetodoDePago = "PUE"; //$MetodoDePago." ".$MetodoPagoTexto;
+            $Ingreso = "";
+            $documento = "";
+            $nUsoCFDI = 0;
+            $dir = "";
+
+            $RFC = $data->RFC;
+            $Nombre = $data->Nombre;
+            $ApellidoP = $data->ApellidoP;
 
 try //inicia Facturacion Dp
 {
@@ -58,11 +81,8 @@ try //inicia Facturacion Dp
     $contador = count($decoded, COUNT_RECURSIVE);
     if ($contador < 4) {
         if ($i == 1) {
-            echo '
-                    <div class="alert alert-danger alert-dismissable fade in">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>ERROR!</strong> Folio del ticket incorrecto. <b>Ingrese</b> un folio valido.
-                    </div>';
+            
+                    $res['data'] = [false, "Folio del ticket incorrecto.Ingrese un folio valido."];
             die();
         }
     } 
@@ -105,7 +125,8 @@ try //inicia Facturacion Dp
                             $sxe = simplexml_load_string($xml);
                             if ($sxe === false) {
                                 foreach (libxml_get_errors() as $error) {
-                                    echo "\t", $error->message;
+                                    $res['data'] = [false, $error];
+                                    //echo "\t", $error->message;
                                 }
                             }
                             foreach ($xml->xpath('//cfdi:Comprobante//cfdi:CfdiRelacionados//cfdi:CfdiRelacionado') as $CFDIRelacionado) {
@@ -177,11 +198,12 @@ try //inicia Facturacion Dp
                                         } catch (Exception $e) {
                                             error_log($e, 3, 'error_dp.log');
                                             //echo $e;
-                                            echo '
-                                                <div class="alert alert-danger alert-dismissable fade in">
-                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                    <strong>ERROR!</strong> Error en el XML Favor de Revisar.
-                                                </div>';
+                                            // echo '
+                                            //     <div class="alert alert-danger alert-dismissable fade in">
+                                            //         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            //         <strong>ERROR!</strong> Error en el XML Favor de Revisar.
+                                            //     </div>';
+                                                $res['data'] = [false, "Error en el XML Favor de Revisar."];
                                             //die();
                                         }
                                     }
@@ -197,9 +219,11 @@ try //inicia Facturacion Dp
                                             $result = $client->FacturacionClienteEgreso($params);
                                             $xmr = $result->FacturacionClienteEgresoResult;
                                         } catch (Exception $e) {
-                                            echo "Error: ".$e;
-                                            error_log($e, 3, 'error_dp.log');
-                                            echo "Error al consultar".$e;
+                                            // echo "Error: ".$e;
+                                            // error_log($e, 3, 'error_dp.log');
+                                            // echo "Error al consultar".$e;
+
+                                            $res['data'] = [false, $e];
                                         }
                                     }
                                     $findme = '<error>';
@@ -235,12 +259,12 @@ try //inicia Facturacion Dp
                                         $onlyconsonants = str_replace($quitar, "", $xmr);
 
                                         if ($i == 1) {
-                                            echo '
-                                            <div class="alert alert-danger alert-dismissable fade in">
-                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                <strong></strong>'.$onlyconsonants.' ERROR .
-                                            </div>';
-
+                                            // echo '
+                                            // <div class="alert alert-danger alert-dismissable fade in">
+                                            //     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            //     <strong></strong>'.$onlyconsonants.' ERROR .
+                                            // </div>';
+                                            $res['data'] = [false, $onlyconsonants ];
                                             if (count($ListaAdjuntos) > 0) {
                                                 foreach ($ListaAdjuntos as $value) {
                                                     $Lista2 .= $value."|";
@@ -1093,14 +1117,45 @@ try //inicia Facturacion Dp
                                 <input class="form-control" id="zip" type="submit"  style="display: none;" name="action" value="'.$Lista2.'">
                                 <input class="form-control" id="namezip" type="submit" style="display: none;"  name="action" value="'.$NombreAd.'" >              
                                 <div id="respuesta"></div>';
-                    }
-                } // Fin foreach element
-            }
+                             }
+                         } // Fin foreach element
+                  }
+              }
+         }
+        } // Fin Try Principal
+        catch (Exception $e) {
+            error_log($e, 3, 'error_dp.log');
+            echo "No se puede realizar la consulta de su ticket Intente mas tarde".$e;
         }
-    }
-} // Fin Try Principal
-catch (Exception $e) {
-    error_log($e, 3, 'error_dp.log');
-    echo "No se puede realizar la consulta de su ticket Intente mas tarde".$e;
-}
+
+            $res['data'] = $decoded;
+               
+            break;
+        }
+    echo json_encode($res);
+    die();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// if (! empty($Referencia)) {
+//     $MetodoPagoTexto = $Referencia;
+// } else {
+//     $MetodoPagoTexto = "No identificado";
+// }
+
+
 ?>

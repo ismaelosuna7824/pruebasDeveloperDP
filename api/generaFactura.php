@@ -22,7 +22,6 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
                
             break;
         }
-//
     echo json_encode($res);
     die();
 ?>
